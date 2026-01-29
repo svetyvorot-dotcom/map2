@@ -2,26 +2,25 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Map Viewer</title>
+    <div id="viewer" style="width: 100%; height: 100vh; background: #000;"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"></script>
-    <style>
-        body, html, #map-container { margin: 0; width: 100%; height: 100%; background: #000; }
-    </style>
-</head>
-<body>
-    <div id="map-container"></div>
     <script>
         var viewer = OpenSeadragon({
-            id: "map-container",
+            id: "viewer",
             prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
             tileSources: {
-                type: 'zoomify',
+                type: 'zoomifytileservice',
                 width: 16384,
                 height: 16384,
-                tilesUrl: "map/" // Путь к вашей папке с тайлами
+                tilesUrl: "map/", // ПРОВЕРЬТЕ: 1. Наличие слеша. 2. Регистр папки 'map'
+                tileSize: 256,
+                fileFormat: 'jpg'
             },
-            showNavigationControl: true
+            drawer: 'canvas', // Принудительно используем 2D canvas вместо WebGL
+            showNavigationControl: true,
+            defaultZoomLevel: 0
         });
     </script>
-</body>
+</head>
+<body style="margin:0; padding:0;"></body>
 </html>
